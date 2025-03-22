@@ -8,6 +8,7 @@ import StartPage from './pages/StartPage'
 import EchoPage from './pages/EchoPage'
 import BurnPage from './pages/BurnPage'
 import ProjectsPage from './pages/ProjectsPage'
+import ProjectDetailsPage from './pages/ProjectDetailsPage'
 import {Toaster} from 'react-hot-toast'
 import {ConfigProvider} from "./contexts/ConfigContext"
 
@@ -33,6 +34,7 @@ function App() {
                                 <Route path="/echo" element={<EchoPage/>}/>
                                 <Route path="/burn" element={<BurnPage/>}/>
                                 <Route path="/projects" element={<ProjectsPage/>}/>
+                                <Route path="/project/:id" element={<ProjectDetailsPage />} />
                             </Routes>
                             <Toaster
                                 position="top-right"

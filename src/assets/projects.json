@@ -1,0 +1,88 @@
+[
+    {
+      "id": 1,
+      "title": "DeFi Lending Platform",
+      "description": "Decentralized lending platform with automated interest rate adjustment and collateral management.",
+      "status": "Active",
+      "progress": 75,
+      "features": [
+        "Automated market maker for interest rates",
+        "Multi-collateral lending pools",
+        "Flash loan functionality",
+        "Liquidation protection mechanisms",
+        "Yield optimization strategies"
+      ],
+      "stack": ["Solidity", "React", "Ethers.js", "Hardhat", "The Graph", "IPFS"],
+      "nextMilestone": "Integration with multiple L2 networks for reduced gas fees"
+    },
+    {
+      "id": 2,
+      "title": "NFT Marketplace",
+      "description": "Marketplace for trading unique digital assets with support for multiple blockchain networks.",
+      "status": "Planning",
+      "progress": 30,
+      "features": [
+        "Multi-chain NFT support",
+        "Lazy minting capability",
+        "Royalty enforcement",
+        "Auction system",
+        "Social features and curation"
+      ],
+      "stack": ["Next.js", "Solidity", "IPFS", "Polygon", "OpenZeppelin"],
+      "nextMilestone": "Launch beta version with support for ERC-721 and ERC-1155 tokens"
+    },
+    {
+      "id": 3,
+      "title": "DAO Governance",
+      "description": "Decentralized governance system with proposal creation and voting mechanisms.",
+      "status": "Active",
+      "progress": 60,
+      "features": [
+        "Proposal submission system",
+        "Quadratic voting",
+        "Delegation mechanism",
+        "Time-lock execution",
+        "Multiple voting strategies"
+      ],
+      "stack": [
+        "Solidity",
+        "TypeScript",
+        "Compound Governor",
+        "React",
+        "Web3.js"
+      ],
+      "nextMilestone": "Implementation of off-chain voting with Snapshot integration"
+    },
+    {
+      "id": 4,
+      "title": "Cross-chain Bridge",
+      "description": "Secure bridge for transferring assets between different blockchain networks.",
+      "status": "Planning",
+      "progress": 45,
+      "features": [
+        "Multi-signature validation",
+        "Automated relayer network",
+        "Asset wrapping protocols",
+        "Emergency pause mechanism",
+        "Cross-chain messaging"
+      ],
+      "stack": ["Rust", "Solidity", "Polkadot", "Chainlink", "React"],
+      "nextMilestone": "Security audit and testnet deployment"
+    },
+    {
+      "id": 5,
+      "title": "DeFi Analytics",
+      "description": "Real-time analytics dashboard for tracking DeFi protocols and market trends.",
+      "status": "Active",
+      "progress": 90,
+      "features": [
+        "Protocol integration APIs",
+        "Real-time price feeds",
+        "Custom alert system",
+        "Portfolio tracking",
+        "Risk assessment tools"
+      ],
+      "stack": ["React", "Node.js", "GraphQL", "PostgreSQL", "Redis", "AWS"],
+      "nextMilestone": "Launch of mobile app with push notifications"
+    }
+  ]
