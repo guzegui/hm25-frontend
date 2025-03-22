@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer'
 import StartPage from './pages/StartPage'
 import EchoPage from './pages/EchoPage'
 import BurnPage from './pages/BurnPage'
+import ProjectsPage from './pages/ProjectsPage'
 import {Toaster} from 'react-hot-toast'
 import {ConfigProvider} from "./contexts/ConfigContext"
 
@@ -31,6 +32,7 @@ function App() {
                                 <Route path="/" element={<StartPage/>}/>
                                 <Route path="/echo" element={<EchoPage/>}/>
                                 <Route path="/burn" element={<BurnPage/>}/>
+                                <Route path="/projects" element={<ProjectsPage/>}/>
                             </Routes>
                             <Toaster
                                 position="top-right"
