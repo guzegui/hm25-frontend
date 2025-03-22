@@ -13,13 +13,13 @@ function StartPage() {
             <div className="mt-20 flex flex-col items-center">
                 <h2 className="text-2xl text-white mb-20 mt-20">Fund a project, get rewards</h2>
                 <p className="text-gray-300 mb-4 mt-4 ml-6 mr-4">
-                    You are not connected to a wallet. Please connect to proceed.
+                    Please login to access the application.
                 </p>
                 <button
                     className="bg-primary-40 p-3 text-black rounded"
                     onClick={toggleConnectModal}
                 >
-                    Connect Wallet
+                    Login
                 </button>
             </div>
         )

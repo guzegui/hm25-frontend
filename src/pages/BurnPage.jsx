@@ -17,12 +17,12 @@ function BurnPage() {
     if (!connected) {
         return (
             <div className="mt-20 text-center text-white">
-                Please connect your wallet.
+                Please login to continue.
                 <button
                     onClick={toggleConnectModal}
                     className="bg-primary-40 text-black px-4 py-2 rounded ml-2"
                 >
-                    Unlock Wallet
+                    Login
                 </button>
             </div>
         )

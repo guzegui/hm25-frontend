@@ -1,0 +1,14 @@
+[
+  {
+    "identity": "admin",
+    "seed": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabc"
+  },
+  {
+    "identity": "user1",
+    "seed": "bcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd"
+  },
+  {
+    "identity": "demo",
+    "seed": "cdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcde"
+  }
+]
