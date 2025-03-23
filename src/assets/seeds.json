@@ -1,14 +1,14 @@
 [
   {
     "identity": "admin",
-    "seed": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabc"
+    "seed": "xpsxzzfqvaohzzwlbofvqkqeemzhnrscpeeokoumekfodtgzmwghtqm"
   },
   {
     "identity": "user1",
-    "seed": "bcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd"
+    "seed": "ukzbkszgzpipmxrrqcxcppumxoxzerrvbjgthinzodrlyblkedutmsy"
   },
   {
     "identity": "demo",
-    "seed": "cdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcde"
+    "seed": "wgfqazfmgucrluchpuivdkguaijrowcnuclfsjrthfezqapnjelkgll"
   }
 ]
