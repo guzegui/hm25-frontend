@@ -18,7 +18,7 @@ export const makeJsonData = (contractIndex, inputType, inputSize, requestData) =
 
 export const HM25_CONTRACT_INDEX = 12
 
-export const PROC_ECHO = 1
+export const PROC_ECHO = 3
 export const PROC_BURN = 2
 export const FUNC_GET_STATS = 1
 
@@ -47,6 +47,7 @@ export async function fetchHM25Stats(httpEndpoint) {
                 numberOfBurnCalls: 0n,
             }
         }
+
 
         return {
             numberOfEchoCalls: buf.readBigUInt64LE(0),
@@ -80,6 +81,8 @@ export async function buildEchoTx(qHelper, sourcePublicKey, tick, amount) {
     dv.setUint16(offset, PROC_ECHO, true)
     offset += 2
     dv.setUint16(offset, INPUT_SIZE, true)
+
+    console.log(tx)
 
     return tx
 }

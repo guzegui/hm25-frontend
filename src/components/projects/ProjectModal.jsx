@@ -1,16 +1,35 @@
 import React from "react";
 import { useQubicConnect } from "../../contexts/QubicConnectContext";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ProjectModal = ({ project, onClose }) => {
-  const { toggleConnectModal } = useQubicConnect(); 
-    const navigate = useNavigate();
+  const { toggleConnectModal } = useQubicConnect();
+  const navigate = useNavigate();
+
+  // Animation variants for the modal content
+  const modalContentVariants = {
+    hidden: { opacity: 0, y: 50 }, // Start with reduced opacity and slide up
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }, // Smooth fade-in and slide-up
+    exit: { opacity: 0, y: 50, transition: { duration: 0.3, ease: "easeIn" } }, // Smooth fade-out and slide-down
+  };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div
-        className="bg-gray-800 rounded-lg w-full max-w-3xl transform transition-all duration-300 scale-100 opacity-100"
-        onClick={(e) => e.stopPropagation()}
+    <motion.div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      onClick={onClose} // Close modal when clicking outside
+    >
+      <motion.div
+        className="bg-gray-800 rounded-lg w-full max-w-3xl transform transition-all"
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+        variants={modalContentVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
       >
         <div className="p-6">
           <div className="flex justify-between items-start mb-6">
@@ -97,8 +116,8 @@ const ProjectModal = ({ project, onClose }) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
