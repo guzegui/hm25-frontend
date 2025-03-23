@@ -74,6 +74,9 @@ importers:
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
+      qubic-ts-library:
+        specifier: ^0.1.4
+        version: 0.1.4
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -5902,6 +5905,10 @@ packages:
 
   qubic-ts-library@0.1.2:
     resolution: {integrity: sha512-VWSwY/FHKRg6G03dMrxqR5qU4AI0InNmLghl49gVbUoz6METR10yK3qT3jg298gJCMh1x7txjk+HZFs0QgpjNA==}
+    deprecated: Package no longer updated. Please use the new packaage at https://www.npmjs.com/package/@qubic-lib/qubic-ts-library
+
+  qubic-ts-library@0.1.4:
+    resolution: {integrity: sha512-+lt8JNfXcIGwTsqcnlx/EIPKU/JnO3MXLSB0tR4vmAJ2lmp3LUloiWH4ZKTpGL0Nb26DRMaj8dNtxgTw+q7ffw==}
     deprecated: Package no longer updated. Please use the new packaage at https://www.npmjs.com/package/@qubic-lib/qubic-ts-library
 
   query-string@7.1.3:
@@ -14616,6 +14623,11 @@ snapshots:
       side-channel: 1.1.0
 
   qubic-ts-library@0.1.2:
+    dependencies:
+      bignumber.js: 9.1.2
+      net: 1.0.2
+
+  qubic-ts-library@0.1.4:
     dependencies:
       bignumber.js: 9.1.2
       net: 1.0.2
