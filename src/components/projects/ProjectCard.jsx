@@ -11,7 +11,7 @@ const ProjectCard = ({ project, onClick }) => {
     return (
         <div 
             className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-            onClick={() => navigate(`/milestones/${project.id}`)}
+            onClick={onClick}  // Changed to use the onClick prop instead of direct navigation
         >
             {/* Project Image */}
             <div className="h-52 overflow-hidden">

@@ -10,6 +10,7 @@ import BurnPage from './pages/BurnPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ProjectDetailsPage from './pages/ProjectDetailsPage'
 import MilestonesPage from './pages/MilestonesPage'
+import AddProjectPage from './pages/AddProjectPage'
 import {Toaster} from 'react-hot-toast'
 import {ConfigProvider} from "./contexts/ConfigContext"
 
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/echo" element={<EchoPage/>}/>
                                 <Route path="/burn" element={<BurnPage/>}/>
                                 <Route path="/projects" element={<ProjectsPage/>}/>
+                                <Route path="/projects/add" element={<AddProjectPage/>}/>
                                 <Route path="/project/:id" element={<ProjectDetailsPage />} />
                                 <Route path="/project/:id/milestones" element={<MilestonesPage />} />
                             </Routes>

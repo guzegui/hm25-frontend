@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import projects from '../assets/projects.json';
 
@@ -7,6 +7,12 @@ const MilestonesPage = () => {
     const navigate = useNavigate();
     const project = projects.find((p) => p.id === parseInt(id));
     const [selectedMilestone, setSelectedMilestone] = useState(null);
+    const [validatedMilestones, setValidatedMilestones] = useState(() => {
+        // Initialize from localStorage if available
+        const saved = localStorage.getItem(`validated-milestones-${id}`);
+        return saved ? JSON.parse(saved) : {};
+    });
+
     const [votes, setVotes] = useState(
         project?.tiers?.reduce((acc, tier, index) => {
             if (tier.proofOfCompletion) {
@@ -16,10 +22,22 @@ const MilestonesPage = () => {
         }, {})
     );
 
+    // Save validated milestones to localStorage when they change
+    useEffect(() => {
+        localStorage.setItem(`validated-milestones-${id}`, JSON.stringify(validatedMilestones));
+    }, [validatedMilestones, id]);
+
     const handleVote = (index) => {
+        if (validatedMilestones[index]) return; // Prevent multiple votes
+        
         setVotes(prev => ({
             ...prev,
             [index]: (prev[index] || 0) + 1
+        }));
+        
+        setValidatedMilestones(prev => ({
+            ...prev,
+            [index]: true
         }));
     };
 
@@ -132,10 +150,24 @@ const MilestonesPage = () => {
                                                 <p className="text-gray-300">{tier.proofOfCompletion.description}</p>
                                                 <div className="mt-4 flex items-center justify-between">
                                                     <button
-                                                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                                                        className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                                                            validatedMilestones[index] 
+                                                                ? 'bg-green-600 text-white cursor-not-allowed' 
+                                                                : 'bg-blue-600 hover:bg-blue-700 text-white'
+                                                        }`}
                                                         onClick={() => handleVote(index)}
+                                                        disabled={validatedMilestones[index]}
                                                     >
-                                                        Validate Milestone
+                                                        {validatedMilestones[index] ? (
+                                                            <>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                                </svg>
+                                                                Validated
+                                                            </>
+                                                        ) : (
+                                                            'Validate Milestone'
+                                                        )}
                                                     </button>
                                                     <div className="text-gray-400">
                                                         {votes[index] || 0} validations received

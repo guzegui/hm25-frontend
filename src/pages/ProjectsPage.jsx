@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProjectCard from '../components/projects/ProjectCard';
 import ProjectModal from '../components/projects/ProjectModal';
 import projects from '../assets/projects.json';
 
 const ProjectsPage = () => {
+    const navigate = useNavigate();
     const [selectedProject, setSelectedProject] = useState(null);
     const [filter, setFilter] = useState('all'); // 'all', 'active', 'planning'
     
@@ -24,6 +26,15 @@ const ProjectsPage = () => {
                         From clean water access to healthcare and education, your contribution 
                         makes a real difference in communities that need it most.
                     </p>
+                    <button 
+                        onClick={() => navigate('/projects/add')}
+                        className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center mx-auto"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                        </svg>
+                        Create New Project
+                    </button>
                 </div>
                 
                 {/* Filter Section */}
@@ -93,16 +104,26 @@ const ProjectsPage = () => {
                 {filteredProjects.length === 0 && (
                     <div className="text-center py-12">
                         <h3 className="text-xl text-gray-300">No projects found with the selected filter.</h3>
-                        <button 
-                            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
-                            onClick={() => setFilter('all')}
-                        >
-                            View All Projects
-                        </button>
+                        <div className="flex flex-col items-center mt-4 space-y-3">
+                            <button 
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+                                onClick={() => setFilter('all')}
+                            >
+                                View All Projects
+                            </button>
+                            <button 
+                                className="px-4 py-2 bg-green-600 text-white rounded-lg flex items-center"
+                                onClick={() => navigate('/projects/add')}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                                </svg>
+                                Add New Project
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
-
             {selectedProject && (
                 <ProjectModal 
                     project={selectedProject} 
