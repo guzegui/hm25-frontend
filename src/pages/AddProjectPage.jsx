@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useHM25 } from '../contexts/HM25Context';
 import { useQubicConnect } from '../contexts/QubicConnectContext';
+import { saveProject } from '../components/api/ProjectService';
+import { toast } from 'react-hot-toast';
 
 const AddProjectPage = () => {
     const navigate = useNavigate();
@@ -142,15 +144,35 @@ const AddProjectPage = () => {
         setIsSubmitting(true);
         
         try {
-            // Here you would typically call an API to save the project
-            // For now, we'll just simulate a successful save and redirect
+            // Save the project using the improved ProjectService
+            const savedProject = await saveProject(formData);
+            
+            // Show success message
+            toast.success('Project created successfully!', {
+                duration: 5000,
+                icon: '🎉',
+            });
+            
+            // Show explanation about the mock implementation
+            toast.custom(
+                <div className="bg-blue-600 text-white px-4 py-3 rounded-lg shadow-md">
+                    <p className="font-medium">Demo Mode</p>
+                    <p className="text-sm">
+                        Your project is saved locally. In a production app, this would update the server database.
+                    </p>
+                </div>,
+                { duration: 7000 }
+            );
+            
+            // Redirect to projects page after a slight delay
             setTimeout(() => {
-                console.log('Project data:', formData);
-                alert('Project created successfully!');
                 navigate('/projects');
             }, 1500);
         } catch (error) {
             console.error('Error creating project:', error);
+            toast.error('Failed to create project. Please try again.', {
+                duration: 5000,
+            });
             setErrors(prev => ({
                 ...prev,
                 submit: 'Failed to create project. Please try again.'

@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProjectCard from "../components/projects/ProjectCard";
 import ProjectModal from "../components/projects/ProjectModal";
-import projects from "../assets/projects.json";
+import { getAllProjects } from "../components/api/ProjectService";
 import { motion } from "framer-motion";
 import { fadeInUp, stagger } from "../components/utils/animations";
 
 const ProjectsPage = () => {
   const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = useState(null);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("all"); // 'all', 'active', 'planning'
+  const [allProjects, setAllProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load projects using the getAllProjects service
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      try {
+        const projects = await getAllProjects();
+        setAllProjects(projects);
+      } catch (error) {
+        console.error("Error loading projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const filteredProjects =
     filter === "all"
-      ? projects
-      : projects.filter(
+      ? allProjects
+      : allProjects.filter(
           (project) => project.status.toLowerCase() === filter.toLowerCase()
         );
 
@@ -109,20 +128,88 @@ const ProjectsPage = () => {
             <p className="text-gray-300">Total Funding Required</p>
           </div>
         </motion.div>
-
-        {/* Project Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={stagger}
-        >
-          {filteredProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={() => setSelectedProject(project)}
-            />
-          ))}
+        
+        {/* Filter Section */}
+        <motion.div className="mb-8 flex justify-center" variants={fadeInUp}>
+          <div className="inline-flex bg-gray-800 rounded-lg p-1">
+            <button 
+              className={`px-4 py-2 rounded-md transition-colors ${
+                filter === 'all' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'text-gray-300 hover:text-white'
+              }`}
+              onClick={() => setFilter('all')}
+            >
+              All Projects
+            </button>
+            <button 
+              className={`px-4 py-2 rounded-md transition-colors ${
+                filter === 'active' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'text-gray-300 hover:text-white'
+              }`}
+              onClick={() => setFilter('active')}
+            >
+              Active
+            </button>
+            <button 
+              className={`px-4 py-2 rounded-md transition-colors ${
+                filter === 'planning' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'text-gray-300 hover:text-white'
+              }`}
+              onClick={() => setFilter('planning')}
+            >
+              Planning
+            </button>
+          </div>
         </motion.div>
+
+        {/* Loading State */}
+        {isLoading ? (
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        ) : (
+          <>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={stagger}
+            >
+              {filteredProjects.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  onClick={() => setSelectedProject(project)}
+                />
+              ))}
+            </motion.div>
+            
+            {/* No Projects Message */}
+            {filteredProjects.length === 0 && (
+              <motion.div className="text-center py-12" variants={fadeInUp}>
+                <h3 className="text-xl text-gray-300">No projects found with the selected filter.</h3>
+                <div className="flex flex-col items-center mt-4 space-y-3">
+                  <button 
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+                    onClick={() => setFilter('all')}
+                  >
+                    View All Projects
+                  </button>
+                  <button 
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg flex items-center"
+                    onClick={() => navigate('/projects/add')}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                    </svg>
+                    Add New Project
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </>
+        )}
       </motion.div>
 
       {/* Project Modal */}
