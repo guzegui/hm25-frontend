@@ -13,16 +13,27 @@ import MilestonesPage from './pages/MilestonesPage'
 import AddProjectPage from './pages/AddProjectPage'
 import {Toaster} from 'react-hot-toast'
 import {ConfigProvider} from "./contexts/ConfigContext"
+import { motion } from 'framer-motion';
+import { fadeInUp } from '../src/components/utils/animations.js';
 
-export function Layout({children}) {
-    return (
-        <div className="flex flex-col min-h-screen">
-            <Header/>
-            <main className="flex-1">{children}</main>
-            <Footer/>
-        </div>
-    )
-}
+export function Layout({ children }) {
+  return (
+    <motion.div 
+      className="flex flex-col min-h-screen"
+      initial="initial"
+      animate="animate"
+      variants={fadeInUp}
+    >
+      <Header />
+      <motion.main className="flex-1" variants={fadeInUp}>
+        {children}
+      </motion.main>
+      <Footer />
+    </motion.div>
+  );
+  
+
+  }
 
 function App() {
     return (
