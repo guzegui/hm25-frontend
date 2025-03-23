@@ -116,3 +116,63 @@ const formatProjectData = (formData) => {
     impact: `Project duration: ${formData.duration} months`
   };
 };
+
+// Add a new function to handle milestone donations
+export const supportMilestone = async (projectId, tierIndex, amount) => {
+  try {
+    // Get the current projects (either from localStorage or the default JSON)
+    let currentProjects = localStorage.getItem('updatedProjects');
+    const projects = currentProjects ? JSON.parse(currentProjects) : projectsData;
+    
+    // Find the project to update
+    const projectIndex = projects.findIndex(p => p.id === parseInt(projectId));
+    
+    if (projectIndex !== -1) {
+      const project = projects[projectIndex];
+      const tier = project.tiers[tierIndex];
+      
+      // Extract numeric value from funding goal (e.g., "75,000 QUs" -> 75000)
+      const extractNumericValue = (fundingGoal) => {
+        const match = fundingGoal.match(/(\d+(?:,\d+)*)/);
+        return match ? parseInt(match[0].replace(/,/g, '')) : 0;
+      };
+      
+      const maxAmount = extractNumericValue(tier.fundingGoal);
+      const currentFunded = Math.round(maxAmount * tier.percentage / 100);
+      const newFunded = currentFunded + amount;
+      const newPercentage = Math.min(Math.round((newFunded / maxAmount) * 100), 100);
+      
+      // Update the tier with new percentage
+      tier.percentage = newPercentage;
+      
+      // Update status if milestone is completed
+      if (newPercentage >= 100 && tier.status !== "Completed") {
+        tier.status = "Completed";
+      }
+      
+      // Update overall project progress
+      const totalPercentage = project.tiers.reduce((sum, t) => sum + t.percentage, 0);
+      project.progress = Math.round(totalPercentage / project.tiers.length);
+      
+      // If the next milestone is completed, update the nextMilestone field
+      if (tier.status === "Completed") {
+        const nextUncompletedTier = project.tiers.find(t => t.status !== "Completed");
+        if (nextUncompletedTier) {
+          project.nextMilestone = nextUncompletedTier.name;
+        } else {
+          project.nextMilestone = "All milestones completed!";
+        }
+      }
+      
+      // Save the updated projects back to localStorage
+      localStorage.setItem('updatedProjects', JSON.stringify(projects));
+      
+      return project;
+    }
+    
+    throw new Error('Project not found');
+  } catch (error) {
+    console.error('Error supporting milestone:', error);
+    throw error;
+  }
+};

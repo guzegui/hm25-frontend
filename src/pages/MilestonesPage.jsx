@@ -1,30 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import projects from '../assets/projects.json';
+import toast from 'react-hot-toast';
+import SupportMilestoneModal from '../components/projects/SupportMilestoneModal';
 
 const MilestonesPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const project = projects.find((p) => p.id === parseInt(id));
+    const [project, setProject] = useState(null);
     const [selectedMilestone, setSelectedMilestone] = useState(null);
-    const [validatedMilestones, setValidatedMilestones] = useState(() => {
-        // Initialize from localStorage if available
-        const saved = localStorage.getItem(`validated-milestones-${id}`);
-        return saved ? JSON.parse(saved) : {};
-    });
+    const [validatedMilestones, setValidatedMilestones] = useState({});
+    const [votes, setVotes] = useState({});
+    const [supportModalOpen, setSupportModalOpen] = useState(false);
+    const [selectedTierIndex, setSelectedTierIndex] = useState(null);
 
-    const [votes, setVotes] = useState(
-        project?.tiers?.reduce((acc, tier, index) => {
-            if (tier.proofOfCompletion) {
-                acc[index] = tier.proofOfCompletion.votes || 0;
+    // Load project and initialize state
+    useEffect(() => {
+        const foundProject = projects.find((p) => p.id === parseInt(id));
+        if (foundProject) {
+            setProject(foundProject);
+            
+            // Initialize votes from project data
+            const initialVotes = foundProject.tiers.reduce((acc, tier, index) => {
+                if (tier.proofOfCompletion) {
+                    acc[index] = tier.proofOfCompletion.votes || 0;
+                }
+                return acc;
+            }, {});
+            setVotes(initialVotes);
+            
+            // Load validated milestones from localStorage
+            const saved = localStorage.getItem(`validated-milestones-${id}`);
+            if (saved) {
+                setValidatedMilestones(JSON.parse(saved));
             }
-            return acc;
-        }, {})
-    );
+        }
+    }, [id]);
 
     // Save validated milestones to localStorage when they change
     useEffect(() => {
-        localStorage.setItem(`validated-milestones-${id}`, JSON.stringify(validatedMilestones));
+        if (Object.keys(validatedMilestones).length > 0) {
+            localStorage.setItem(`validated-milestones-${id}`, JSON.stringify(validatedMilestones));
+        }
     }, [validatedMilestones, id]);
 
     const handleVote = (index) => {
@@ -39,6 +56,69 @@ const MilestonesPage = () => {
             ...prev,
             [index]: true
         }));
+    };
+    
+    const handleSupportClick = (index) => {
+        setSelectedTierIndex(index);
+        setSupportModalOpen(true);
+    };
+    
+    const handleDonationComplete = (tier, amount) => {
+        // Calculate new percentage based on donation
+        const extractNumericValue = (fundingGoal) => {
+            const match = fundingGoal.match(/(\d+(?:,\d+)*)/);
+            return match ? parseInt(match[0].replace(/,/g, '')) : 0;
+        };
+        
+        const maxAmount = extractNumericValue(tier.fundingGoal);
+        const currentFunded = Math.round(maxAmount * tier.percentage / 100);
+        const newFunded = currentFunded + amount;
+        const newPercentage = Math.min(Math.round((newFunded / maxAmount) * 100), 100);
+        
+        // Update the project's tier with the new percentage
+        const updatedTiers = project.tiers.map((t, i) => {
+            if (i === selectedTierIndex) {
+                // Update status if milestone is completed
+                const newStatus = newPercentage >= 100 ? "Completed" : tier.status;
+                return {
+                    ...t,
+                    percentage: newPercentage,
+                    status: newStatus
+                };
+            }
+            return t;
+        });
+        
+        // Calculate overall project progress
+        const totalPercentage = updatedTiers.reduce((sum, t) => sum + t.percentage, 0);
+        const overallProgress = Math.round(totalPercentage / updatedTiers.length);
+        
+        // Update the project with new tiers and progress
+        const updatedProject = {
+            ...project,
+            tiers: updatedTiers,
+            progress: overallProgress
+        };
+        
+        setProject(updatedProject);
+        
+        // Save to localStorage to persist changes
+        const allProjects = projects.map(p => p.id === parseInt(id) ? updatedProject : p);
+        localStorage.setItem('updatedProjects', JSON.stringify(allProjects));
+        
+        // Show confirmation toast
+        toast.success(`Thank you for supporting with ${amount} QUs!`);
+    };
+
+    const getMilestoneStatusColor = (status) => {
+        switch(status) {
+            case "Completed":
+                return "bg-green-500/20 text-green-400";
+            case "In Progress":
+                return "bg-blue-500/20 text-blue-400";
+            default:
+                return "bg-gray-500/20 text-gray-400";
+        }
     };
 
     if (!project) {
@@ -57,31 +137,20 @@ const MilestonesPage = () => {
         );
     }
 
-    const getMilestoneStatusColor = (status) => {
-        switch(status) {
-            case "Completed":
-                return "bg-green-500/20 text-green-400";
-            case "In Progress":
-                return "bg-blue-500/20 text-blue-400";
-            default:
-                return "bg-gray-500/20 text-gray-400";
-        }
-    };
-
     return (
         <div className="min-h-screen bg-gray-900 text-white">
             {/* Header */}
-                <div className="max-w-6xl mx-auto px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold">{project.title}</h1>
-                        <button
-                            className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors mt-24"
-                            onClick={() => navigate(`/project/${id}`)}
-                        >
-                            Back to Project
-                        </button>
+            <div className="max-w-6xl mx-auto px-6 py-4">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-bold">{project.title}</h1>
                     </div>
+                    <button
+                        className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+                        onClick={() => navigate(`/project/${id}`)}
+                    >
+                        Back to Project
+                    </button>
                 </div>
             </div>
 
@@ -133,6 +202,24 @@ const MilestonesPage = () => {
                                     </div>
                                 </div>
 
+                                {/* Support Milestone Button - New Addition */}
+                                <div className="flex justify-end">
+                                    <button
+                                        className={`flex items-center gap-2 px-5 py-2 rounded-lg transition-colors ${
+                                            tier.percentage >= 100 ? 
+                                            'bg-gray-600 cursor-not-allowed' : 
+                                            'bg-green-600 hover:bg-green-700'
+                                        } text-white`}
+                                        onClick={() => handleSupportClick(index)}
+                                        disabled={tier.percentage >= 100}
+                                    >
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                        {tier.percentage >= 100 ? 'Milestone Funded' : 'Support Milestone'}
+                                    </button>
+                                </div>
+
                                 {tier.status === "Completed" && tier.proofOfCompletion && (
                                     <div className="mt-6 pt-6 border-t border-gray-700">
                                         <div className="flex items-center justify-between mb-4">
@@ -182,6 +269,17 @@ const MilestonesPage = () => {
                     ))}
                 </div>
             </div>
+            
+            {/* Support Milestone Modal */}
+            {supportModalOpen && selectedTierIndex !== null && (
+                <SupportMilestoneModal
+                    isOpen={supportModalOpen}
+                    onClose={() => setSupportModalOpen(false)}
+                    tier={project.tiers[selectedTierIndex]}
+                    projectId={id}
+                    onDonationComplete={handleDonationComplete}
+                />
+            )}
         </div>
     );
 };
