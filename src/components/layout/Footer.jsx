@@ -3,11 +3,11 @@ import pkg from '../../../package.json'
 import logoShort from '../../assets/logo/logo-text-short.svg'
 
 const Footer = () => {
-    const {pathname} = useLocation()
+    const {pathname} = useLocation();
 
     if (pathname.indexOf('/bet/') === -1) {
-        return (<div
-                className="px-5 sm:px-20 md:px-100 py-16 flex flex-col sm:flex-row items-center sm:justify-between sm:items-end gap-10">
+        return (
+            <div className="px-5 sm:px-20 md:px-100 py-16 flex flex-col sm:flex-row items-center sm:justify-between sm:items-end gap-10 bg-gray-900 text-gray-300">
                 <div className="flex gap-10">
                     <img src={logoShort} alt="logo-short"/>
                     <span className="text-gray-50 text-12 leading-18 font-space">
@@ -17,21 +17,21 @@ const Footer = () => {
 
                 <div className="flex items-center gap-2">
                     <a style={{textDecoration: 'none', color: 'white'}}
-                        className="text-12 leading-18 font-space"
+                        className="text-12 leading-18 font-space hover:text-blue-400"
                         target='_blank' rel="noreferrer"
                         href="https://qubic.org/Terms-of-service">
                         Terms of service
                     </a>
                     <span className="text-gray-50">•</span>
                     <a style={{textDecoration: 'none', color: 'white'}}
-                        className="text-12 leading-18 font-space"
+                        className="text-12 leading-18 font-space hover:text-blue-400"
                         target='_blank' rel="noreferrer"
                         href="https://qubic.org/Privacy-policy">
                         Privacy Policy
                     </a>
                     <span className="text-gray-50">•</span>
                     <a style={{textDecoration: 'none', color: 'white'}}
-                        className="text-12 leading-18 font-space"
+                        className="text-12 leading-18 font-space hover:text-blue-400"
                         target='_blank' rel="noreferrer"
                         href="https://status.qubic.li/">
                         Network Status
@@ -40,9 +40,10 @@ const Footer = () => {
                         Version {pkg.version}
                     </span>
                 </div>
-            </div>)
+            </div>
+        );
     }
-    return null
-}
+    return null;
+};
 
-export default Footer
+export default Footer;

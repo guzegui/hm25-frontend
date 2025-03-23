@@ -1,88 +1,262 @@
 [
     {
       "id": 1,
-      "title": "DeFi Lending Platform",
-      "description": "Decentralized lending platform with automated interest rate adjustment and collateral management.",
+      "title": "Clean Water Initiative - Tanzania",
+      "description": "Providing clean water access to remote villages in Tanzania through well construction and water purification systems.",
       "status": "Active",
       "progress": 75,
+      "image": "/1.png",
       "features": [
-        "Automated market maker for interest rates",
-        "Multi-collateral lending pools",
-        "Flash loan functionality",
-        "Liquidation protection mechanisms",
-        "Yield optimization strategies"
+        "Construction of 20 wells across 5 villages",
+        "Water purification systems installation",
+        "Training local technicians for maintenance",
+        "Water quality monitoring network",
+        "Community education programs"
       ],
-      "stack": ["Solidity", "React", "Ethers.js", "Hardhat", "The Graph", "IPFS"],
-      "nextMilestone": "Integration with multiple L2 networks for reduced gas fees"
+      "stack": ["Solar Technology", "Filtration Systems", "Community Training", "Remote Monitoring"],
+      "nextMilestone": "Complete water purification stations in Mwanza region",
+      "tiers": [
+        {
+          "name": "Phase 1",
+          "description": "Initial assessment and first 5 wells",
+          "fundingGoal": "50,000 QUs",
+          "status": "Completed",
+          "percentage": 100,
+          "proofOfCompletion": {
+            "description": "The funding helped construct 5 wells, providing clean water to 3,000 people in the community.",
+            "votes": 120
+          }
+        },
+        {
+          "name": "Phase 2",
+          "description": "Construction of 10 additional wells",
+          "fundingGoal": "100,000 QUs",
+          "status": "Completed",
+          "percentage": 100,
+          "proofOfCompletion": {
+            "description": "The funding enabled the construction of 10 wells, improving water access for 7,000 people.",
+            "votes": 85
+          }
+        },
+        {
+          "name": "Phase 3",
+          "description": "Water purification systems installation",
+          "fundingGoal": "75,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        }
+      ],
+      "location": "Tanzania",
+      "impact": "15,000 people will gain access to clean water"
     },
     {
       "id": 2,
-      "title": "NFT Marketplace",
-      "description": "Marketplace for trading unique digital assets with support for multiple blockchain networks.",
-      "status": "Planning",
-      "progress": 30,
+      "title": "Rural Hospital Construction - Kenya",
+      "description": "Building a modern medical facility in rural Kenya to provide essential healthcare services to underserved communities.",
+      "status": "Active",
+      "progress": 50,
+      "image": "/2.png",
       "features": [
-        "Multi-chain NFT support",
-        "Lazy minting capability",
-        "Royalty enforcement",
-        "Auction system",
-        "Social features and curation"
+        "20-bed inpatient facility",
+        "Emergency care unit",
+        "Maternal and child healthcare",
+        "Infectious disease treatment center",
+        "Medical staff training program"
       ],
-      "stack": ["Next.js", "Solidity", "IPFS", "Polygon", "OpenZeppelin"],
-      "nextMilestone": "Launch beta version with support for ERC-721 and ERC-1155 tokens"
+      "stack": ["Construction", "Medical Equipment", "Solar Power", "Healthcare Training", "Telemedicine"],
+      "nextMilestone": "Completion of hospital structure and roof",
+      "tiers": [
+        {
+          "name": "Foundation",
+          "description": "Land acquisition and foundation construction",
+          "fundingGoal": "150,000 QUs",
+          "status": "In Progress",
+          "percentage": 60
+        },
+        {
+          "name": "Structure",
+          "description": "Main building construction and roofing",
+          "fundingGoal": "300,000 QUs",
+          "status": "In Progress",
+          "percentage": 60
+        },
+        {
+          "name": "Equipment",
+          "description": "Medical equipment procurement and installation",
+          "fundingGoal": "250,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        },
+        {
+          "name": "Staffing",
+          "description": "Hiring and training of medical staff",
+          "fundingGoal": "200,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        }
+      ],
+      "location": "Kenya",
+      "impact": "Will serve approximately 50,000 people in the region"
     },
     {
       "id": 3,
-      "title": "DAO Governance",
-      "description": "Decentralized governance system with proposal creation and voting mechanisms.",
+      "title": "Solar Education Centers - Nigeria",
+      "description": "Creating solar-powered education centers with digital learning resources for children in rural Nigerian communities.",
       "status": "Active",
       "progress": 60,
+      "image": "/3.png",
       "features": [
-        "Proposal submission system",
-        "Quadratic voting",
-        "Delegation mechanism",
-        "Time-lock execution",
-        "Multiple voting strategies"
+        "Solar panel installation for reliable power",
+        "Computer labs with educational software",
+        "Internet connectivity for online resources",
+        "Teacher training programs",
+        "Community learning initiatives"
       ],
       "stack": [
-        "Solidity",
-        "TypeScript",
-        "Compound Governor",
-        "React",
-        "Web3.js"
+        "Solar Technology",
+        "Educational Software",
+        "Digital Literacy",
+        "Teacher Training",
+        "Satellite Internet"
       ],
-      "nextMilestone": "Implementation of off-chain voting with Snapshot integration"
+      "nextMilestone": "Completion of first 5 education centers in Lagos State",
+      "tiers": [
+        {
+          "name": "Pilot Center",
+          "description": "First educational center as proof of concept",
+          "fundingGoal": "75,000 QUs",
+          "status": "In Progress",
+          "percentage": 70
+        },
+        {
+          "name": "Expansion",
+          "description": "Construction of 5 additional centers",
+          "fundingGoal": "200,000 QUs",
+          "status": "In Progress",
+          "percentage": 70
+        },
+        {
+          "name": "Connectivity",
+          "description": "Internet and network infrastructure",
+          "fundingGoal": "100,000 QUs",
+          "status": "In Progress",
+          "percentage": 30
+        },
+        {
+          "name": "Curriculum",
+          "description": "Development of digital learning materials",
+          "fundingGoal": "50,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        }
+      ],
+      "location": "Nigeria",
+      "impact": "Will provide education access to over 3,000 children"
     },
     {
       "id": 4,
-      "title": "Cross-chain Bridge",
-      "description": "Secure bridge for transferring assets between different blockchain networks.",
+      "title": "Sustainable Agriculture - Ethiopia",
+      "description": "Implementing drought-resistant farming techniques and technologies to improve food security in Ethiopian communities.",
       "status": "Planning",
-      "progress": 45,
+      "progress": 25,
+      "image": "/4.png",
       "features": [
-        "Multi-signature validation",
-        "Automated relayer network",
-        "Asset wrapping protocols",
-        "Emergency pause mechanism",
-        "Cross-chain messaging"
+        "Drip irrigation systems",
+        "Drought-resistant seed distribution",
+        "Farming technique training",
+        "Soil conservation methods",
+        "Market access development"
       ],
-      "stack": ["Rust", "Solidity", "Polkadot", "Chainlink", "React"],
-      "nextMilestone": "Security audit and testnet deployment"
+      "stack": ["Sustainable Agriculture", "Irrigation Technology", "Seed Banking", "Community Training", "Supply Chain Development"],
+      "nextMilestone": "First demonstration farm with drip irrigation systems",
+      "tiers": [
+        {
+          "name": "Research",
+          "description": "Site selection and agricultural research",
+          "fundingGoal": "30,000 QUs",
+          "status": "Completed",
+          "percentage": 100,
+          "proofOfCompletion": {
+            "description": "The funding supported research and site selection, benefiting 500 farmers with improved techniques.",
+            "votes": 95
+          }
+        },
+        {
+          "name": "Pilot Farm",
+          "description": "First demonstration farm setup",
+          "fundingGoal": "100,000 QUs",
+          "status": "Completed",
+          "percentage": 100,
+          "proofOfCompletion": {
+            "description": "The funding established a pilot farm, showcasing drought-resistant techniques to 1,000 farmers.",
+            "votes": 110
+          }
+        },
+        {
+          "name": "Training",
+          "description": "Farmer education and skill development",
+          "fundingGoal": "70,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        },
+        {
+          "name": "Expansion",
+          "description": "Technology distribution to 500 farmers",
+          "fundingGoal": "200,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        }
+      ],
+      "location": "Ethiopia",
+      "impact": "Will improve food security for 10,000 people"
     },
     {
       "id": 5,
-      "title": "DeFi Analytics",
-      "description": "Real-time analytics dashboard for tracking DeFi protocols and market trends.",
+      "title": "Maternal Healthcare - Ghana",
+      "description": "Establishing maternal healthcare clinics and mobile health services in rural Ghana to reduce maternal mortality.",
       "status": "Active",
-      "progress": 90,
+      "progress": 80,
+      "image": "/5.png",
       "features": [
-        "Protocol integration APIs",
-        "Real-time price feeds",
-        "Custom alert system",
-        "Portfolio tracking",
-        "Risk assessment tools"
+        "Prenatal care clinics",
+        "Mobile healthcare services",
+        "Midwife training programs",
+        "Essential medical supplies",
+        "Community health education"
       ],
-      "stack": ["React", "Node.js", "GraphQL", "PostgreSQL", "Redis", "AWS"],
-      "nextMilestone": "Launch of mobile app with push notifications"
+      "stack": ["Medical Training", "Mobile Health Units", "Telemedicine", "Medical Equipment", "Health Education"],
+      "nextMilestone": "Launch of 3 additional mobile health units",
+      "tiers": [
+        {
+          "name": "Central Clinic",
+          "description": "Main maternal health facility",
+          "fundingGoal": "120,000 QUs",
+          "status": "In Progress",
+          "percentage": 60
+        },
+        {
+          "name": "Mobile Units",
+          "description": "First set of mobile healthcare units",
+          "fundingGoal": "150,000 QUs",
+          "status": "In Progress",
+          "percentage": 60
+        },
+        {
+          "name": "Expansion",
+          "description": "3 additional mobile units and satellite clinics",
+          "fundingGoal": "200,000 QUs",
+          "status": "In Progress",
+          "percentage": 60
+        },
+        {
+          "name": "Training",
+          "description": "Training program for local healthcare providers",
+          "fundingGoal": "80,000 QUs",
+          "status": "Upcoming",
+          "percentage": 0
+        }
+      ],
+      "location": "Ghana",
+      "impact": "Will serve approximately 30,000 women and children"
     }
   ]

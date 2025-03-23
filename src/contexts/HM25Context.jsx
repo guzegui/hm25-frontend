@@ -48,7 +48,7 @@ export const HM25Provider = ({ children }) => {
             }
         }
         fetchStats() // Fetch immediately on mount or httpEndpoint change
-        const intervalId = setInterval(fetchStats, 5000) // Fetch every 5 seconds
+        const intervalId =  (fetchStats, 5000) // Fetch every 5 seconds
         return () => clearInterval(intervalId) // Cleanup interval on unmount or httpEndpoint change
     }, [httpEndpoint])
 

@@ -17,7 +17,16 @@ export const makeJsonData = (contractIndex, inputType, inputSize, requestData) =
 }
 
 export const HM25_CONTRACT_INDEX = 12
-
+/**
+ * 
+ * Definition of payload struct
+ * 
+ * struct Payload {
+ *  
+ * 
+ * 
+ * 
+*/
 export const PROC_ECHO = 1
 export const PROC_BURN = 2
 export const FUNC_GET_STATS = 1
@@ -60,6 +69,8 @@ export async function fetchHM25Stats(httpEndpoint) {
         }
     }
 }
+
+
 
 export async function buildEchoTx(qHelper, sourcePublicKey, tick, amount) {
     const finalTick = tick + TICK_OFFSET
